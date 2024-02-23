@@ -25,7 +25,9 @@ const app = express();
 app.use(express.json({ limit: "10mb" }));
 app.use(morgan("common"));
 app.use(cookieParser());
-let origin = 'http://localhost:3000';
+// let origin = 'http://localhost:3000';
+
+let origin = process.env.ORIGIN;
 // console.log('here env', process.env.NODE_ENV);
 // if (process.env.NODE_ENV === 'production') {
 //     origin = process.env.CLIENT_ORIGIN;
@@ -33,13 +35,7 @@ let origin = 'http://localhost:3000';
 
 
 
-// app.use((req, res, next) => {
-//     res.setHeader("Access-Control-Allow-Credentials", true);
-//     // res.setHeader("Access-Control-Allow-Origin", true);
-//     next();
-// });
 
-// console.log(origin);
 app.use(
     cors({
         credentials: true,
@@ -48,14 +44,7 @@ app.use(
     })
 );
 
-// const corsOptions = {
 
-//     origin: 'http://localhost:3000',
-//     credentials: true,
-//     optionSuccessStatus: 200
-
-// }
-// app.use(cors(corsOptions));
 
 
 app.use("/auth", authRouter);
